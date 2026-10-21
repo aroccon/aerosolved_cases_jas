@@ -1,0 +1,12 @@
+FoamFile 
+{ 
+version 2.0;
+format ascii;
+class vectorField;
+location constant;
+object injector_4311Position;
+}
+
+(
+(0.015969 0.036931 0.00050265)
+);

@@ -1,0 +1,29 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      Water.dispersed;
+}
+
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 3.809217E-3;
+
+boundaryField
+{
+    movingWall
+    {
+        type        	zeroGradient;
+    }
+
+    fixedWalls
+    {
+        type        	zeroGradient;
+    }
+
+    frontAndBack
+    {
+        type            empty;
+    }
+}
