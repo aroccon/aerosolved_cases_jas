@@ -6,7 +6,7 @@ This repository contains the simulation setups and configuration files for the t
 
 **"Comparison of Eulerian and Lagrangian Frameworks for Aerosol Simulation"** *(in preparation)*
 
-**Authors:** A. Roccon, F. Lucci, and C. Marchioli.
+**Authors:** A. Roccon, F. Lucci, and C. Marchioli
 
 The test cases cover different flow configurations and particle distributions, providing a basis for comparing Eulerian and Lagrangian approaches to aerosol transport.
 
