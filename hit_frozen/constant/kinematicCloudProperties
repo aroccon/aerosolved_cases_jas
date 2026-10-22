@@ -1,0 +1,91 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      kinematicCloudProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solution
+{
+    active          		true;
+    coupled         		no;
+    transient       		yes;
+    cellValueSourceCorrection	no;
+    maxCo           		0.01;
+
+    interpolationSchemes
+    	{
+        	rho             	cell;
+        	U               	cellPoint;
+        	muc             	cell;
+        	thermo:mu		cell;
+        	p			cell;
+        	electricPotential:E	cellPoint;
+    	}
+
+	integrationSchemes
+	{
+		U	Euler;
+	}
+}
+
+constantProperties
+{
+	rho0	1000;
+}
+
+subModels
+{
+	injectionModels
+	{
+		injector
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition";
+			sizeDistribution
+			{
+				type		uniform;
+				uniformDistribution
+				{
+					minValue	1e-6;
+					maxValue	1e-5;
+				}
+			}
+		}
+	}
+    particleForces
+    {
+        sphereDrag;
+    };
+
+    dispersionModel none;
+
+    patchInteractionModel standardWallInteraction;
+
+    stochasticCollisionModel none;
+
+    surfaceFilmModel none;
+
+    standardWallInteractionCoeffs
+    {
+        type            escape;
+    }
+}
+
+
+// ************************************************************************* //
+

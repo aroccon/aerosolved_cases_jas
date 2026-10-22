@@ -1,7 +1,3 @@
-# aerosolved_cases_jas
-
-## Overview
-
 This repository contains the simulation setups and configuration files for the test cases presented in the paper:
 
 **"Comparison of Eulerian and Lagrangian Frameworks for Aerosol Simulation"** *(in preparation)*
@@ -28,8 +24,8 @@ The repository includes the following configurations:
 | `cavity_1000` | Lid-driven cavity | 1,000 | 10,000 particles, 10 µm diameter | Available |
 | `cavity_3200` | Lid-driven cavity | 3,200 | 10,000 particles, 10 µm diameter | Available |
 | `taylor_green` | Periodic Taylor–Green vortex | 1,600 | 9,000 particles, 1–10 µm diameter (9 sections) | Available |
-| `hit_frozen` | Frozen homogeneous isotropic turbulence | — | — | Work in progress |
-| `hit_decaying` | Decaying homogeneous isotropic turbulence | — | — | Work in progress |
+| `hit_frozen` | Frozen homogeneous isotropic turbulence | 57 (Taylor) | 9,000 particles, 1–10 µm diameter (9 sections) | Available |
+| `hit_decaying` | Decaying homogeneous isotropic turbulence | 57 (Taylor) | — | Work in progress |
 
 ### 1. Lid-Driven Cavity (`cavity_1000`, `cavity_3200`)
 
@@ -60,7 +56,16 @@ This case considers aerosol transport in a periodic Taylor–Green (TG) vortex.
 
 ### 3. Frozen Homogeneous Isotropic Turbulence (`hit_frozen`)
 
-**Status:** Work in progress (WIP).
+This case considers aerosol transport in a homogeneous isotropic turbulence box (frozen).
+
+**Flow parameters:**
+- 3D Periodic flow configuration
+- Taylor Reynolds number: $Re_\lambda = 57$
+
+**Particle parameters:**
+- Number of particles: 50,000
+- Particle diameter range: 1–10 µm
+- Polydisperse distribution represented by 9 discrete size sections.
 
 ### 4. Decaying Homogeneous Isotropic Turbulence (`hit_decaying`)
 

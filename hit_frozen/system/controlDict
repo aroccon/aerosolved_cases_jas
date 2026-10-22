@@ -1,0 +1,44 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+
+application     aerosolEulerFoam;
+
+startFrom       startTime;
+
+startTime       0.0;
+
+stopAt          endTime;
+
+endTime         0.05;
+
+deltaT          5E-6;
+
+adjustTimeStep  yes;
+
+maxCo           0.25;
+
+maxDeltaT       1E-5;
+
+writeControl    adjustableRunTime;
+
+writeInterval   1e-3;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  8;
+
+writeCompression false;
+
+timeFormat      general;
+
+timePrecision   10;
+
+runTimeModifiable yes;
