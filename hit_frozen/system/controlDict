@@ -15,7 +15,7 @@ startTime       0.0;
 
 stopAt          endTime;
 
-endTime         0.05;
+endTime         0.02;
 
 deltaT          5E-6;
 
@@ -31,7 +31,7 @@ writeInterval   1e-3;
 
 purgeWrite      0;
 
-writeFormat     ascii;
+writeFormat     binary;
 
 writePrecision  8;
 

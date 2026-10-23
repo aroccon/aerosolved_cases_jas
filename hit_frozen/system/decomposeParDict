@@ -14,9 +14,9 @@ FoamFile
     location    "system";
     object      decomposeParDict;
 }
-numberOfSubdomains 32;
+numberOfSubdomains 8;     // set to the physical cores used (scotch: any number)
 
-method          simple;
+method          scotch;
 
 coeffs
 {

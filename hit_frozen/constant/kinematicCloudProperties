@@ -20,7 +20,7 @@ solution
     coupled         		no;
     transient       		yes;
     cellValueSourceCorrection	no;
-    maxCo           		0.01;
+    maxCo           		0.1;
 
     interpolationSchemes
     	{

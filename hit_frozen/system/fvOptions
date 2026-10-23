@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2312                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Isothermal carrier. With frozenFlow the momentum/pressure equations are not
+// solved, but TEqn is: the pressure-work term p*div(phi/rho), with rho updated
+// from the equation of state, makes T drift (268-316 K after ~30 steps).
+// Fixing T keeps rho uniform and phi divergence-free.
+// (fixedTemperatureConstraint cannot be used: aerosolThermo does not implement he().)
+
+fixTemperature
+{
+    type            scalarFixedValueConstraint;
+    selectionMode   all;
+    fieldValues
+    {
+        T           293.15;
+    }
+}
+
+// ************************************************************************* //

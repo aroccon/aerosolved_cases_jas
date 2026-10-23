@@ -1,0 +1,44 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      M.8;
+}
+
+dimensions      [-1 0 0 0 0 0 0];
+
+internalField   uniform 9.842387E+05;
+
+boundaryField                 
+{                                          
+	 upperBoundary                           
+	 {                                       
+		 type       	 cyclic;                 
+	 }                                       
+
+	 lowerBoundary                           
+	 {                                       
+		 type       	 cyclic;                 
+	 }                                       
+
+	 leftBoundary                            
+	 {                                       
+		 type       	 cyclic;                 
+	 }                                       
+
+	 rightBoundary                           
+	 {                                       
+		 type       	 cyclic;                 
+	 }                                       
+
+         frontBoundary
+         {
+                 type            cyclic;
+         }
+         backBoundary
+         {
+                 type            cyclic;
+         }
+}

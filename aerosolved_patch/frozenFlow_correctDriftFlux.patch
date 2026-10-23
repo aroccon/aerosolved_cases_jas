@@ -1,0 +1,14 @@
+--- a/applications/solvers/aerosolEulerFoam/aerosolEulerFoam.C
++++ b/applications/solvers/aerosolEulerFoam/aerosolEulerFoam.C
+@@ -150,6 +150,11 @@
+             }
+             else
+             {
++                // Frozen flow: the drift velocities (fullStokes) and the
++                // multivariate convection schemes used in YEqn.H must still be
++                // updated every step
++                aerosol->correctDriftFlux();
++
+                 aerosol->solvePre();
+ 
+                 #include "YEqn.H"
