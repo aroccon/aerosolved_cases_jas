@@ -1,0 +1,126 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      kinematicCloudProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solution
+{
+    active          		true;
+    coupled         		no;
+    transient       		yes;
+    cellValueSourceCorrection	no;
+    maxCo           		0.1;
+
+    interpolationSchemes
+    	{
+        	rho             	cell;
+        	U               	cellPoint;
+        	muc             	cell;
+        	thermo:mu		cell;
+        	p			cell;
+        	electricPotential:E	cellPoint;
+    	}
+
+	integrationSchemes
+	{
+		U	Euler;
+	}
+}
+
+constantProperties
+{
+	rho0	1000;
+}
+
+subModels
+{
+	injectionModels
+	{
+		injector_d1.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d1.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	1.5e-06;
+				}
+			}
+		}
+		injector_d5.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d5.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	5.5e-06;
+				}
+			}
+		}
+		injector_d9.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d9.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	9.5e-06;
+				}
+			}
+		}
+	}
+    particleForces
+    {
+        sphereDrag;
+    };
+
+    dispersionModel none;
+
+    patchInteractionModel standardWallInteraction;
+
+    stochasticCollisionModel none;
+
+    surfaceFilmModel none;
+
+    standardWallInteractionCoeffs
+    {
+        type            escape;
+    }
+}
+
+
+// ************************************************************************* //
+

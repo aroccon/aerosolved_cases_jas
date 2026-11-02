@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2312                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Isothermal carrier: with frozenFlow the energy equation is still solved and
+// the pressure-work term makes T (and rho) drift unless T is held fixed.
+
+fixTemperature
+{
+    type            scalarFixedValueConstraint;
+    selectionMode   all;
+    fieldValues
+    {
+        T           293.15;
+    }
+}
+
+// ABC forcing, copied unchanged from hit_forced_250_spinup_rhop/system/fvOptions
+abcForcing
+{
+    type            vectorCodedSource;
+    selectionMode   all;
+    fields          (U);
+    name            abcForcing;
+
+    codeInclude
+    #{
+        #include "mathematicalConstants.H"
+    #};
+
+    codeAddSupRho
+    #{
+        const scalar L     = 0.01;                                   // box [m]
+        const scalar ell   = L/(2.0*constant::mathematical::pi);
+        const scalar k     = 2.0/ell;                                // k0 = 2
+        const scalar F     = 110.244539;                             // V^2/ell [m/s^2]
+        const scalar f1 = 1.0*F, f2 = 1.0*F, f3 = 1.0*F;            // MHIT36 f1, f2, f3
+        const scalar ph    = -constant::mathematical::pi/256.0;      // MHIT36 phase
+
+        const vectorField& X = mesh_.C();
+        const scalarField& V = mesh_.V();
+        vectorField& S = eqn.source();
+        forAll(X, i)
+        {
+            const scalar ax = k*X[i].x() + ph;
+            const scalar ay = k*X[i].y() + ph;
+            const scalar az = k*X[i].z() + ph;
+            const vector f
+            (
+                f3*Foam::sin(az) + f2*Foam::cos(ay),
+                f1*Foam::sin(ax) + f3*Foam::cos(az),
+                f2*Foam::sin(ay) + f1*Foam::cos(ax)
+            );
+            S[i] -= rho[i]*f*V[i];        // "-=": adds +rho f to the momentum equation
+        }
+    #};
+
+    codeAddSup      #{ #};
+    codeCorrect     #{ #};
+    codeConstrain   #{ #};
+}
+
+// ************************************************************************* //
