@@ -122,15 +122,14 @@ This case considers aerosol transport in a statistically stationary homogeneous 
 | $\Delta x/\eta$ ($250^3$) | 0.74–0.79 |
 
 **Particle parameters:**
-- 9 sizes at the EE section diameters, $d_p = 1.5$, 5.5 and 9.5 µm, 111,111 particles each (333,333 in total)
-- One `manualInjection` injector per size with a fixed diameter, positions in `constant/kinematicCloudPosition.d1.5`, `.d5.5`, `.d9.5` (the start positions of the LPT tracker for the same sizes)
-- EE: 3 sections (`0/M.1`–`0/M.3`) with the same representative diameters, so that each EL size corresponds exactly to one EE section
-- Stokes number: $St_\eta \approx 0.05$, 0.6 and 1.9
+- 9 sizes at the EE section diameters, $d_p = 1.5$, 5.5 and 9.5 µm, 111,111 particles each (1M in total)
+- EE: 9 sections (`0/M.1`–`0/M.9`) with the same representative diameters, so that each EL size corresponds exactly to one EE section
+- Stokes number: from 0.05 to 1.9.
 - Particles initially at rest in both frameworks (EL: `U0 (0 0 0)`; EE: `0/V` $= -$`0/U`)
 
 **Carrier velocity field.** The case is built in two stages; `0/U`, `0/p` and `0/V` are not stored here because of their size.
 
-1. *Spin-up* (single phase): `rhoPimpleFoam` on the $250^3$ mesh with the same `abcForcing`, starting from the same `0/U` as `hit_frozen` at $250^3$ (MHIT36 field mapped with `hit_frozen/scripts/hit_to_openfoam3d.m`), run for 10 ms (about $1.6\,k/\varepsilon$) until the kinetic energy is statistically stationary. Then `reconstructPar -time 0.01 -fields '(U p)'`.
+1. *Spin-up* (single phase): `rhoPimpleFoam` on the $250^3$ mesh with the same `abcForcing`, starting from the same `0/U` as `hit_frozen` at $250^3$ (MHIT36 field mapped with `hit_frozen/scripts/hit_to_openfoam3d.m`), run for 10 ms (about $1.6\,k/\varepsilon$) until the kinetic energy is statistically stationary. 
 2. *Production case*: `forced_production.py` copies the spun-up `U` and `p` into `0/`, writes `0/V = -U`, the uniform `0/M.i` and the three particle position files, and adds the forcing to `system/fvOptions`; the aerosol phase is then released at $t = 0$ on the stationary flow:
    `python3 forced_production.py hit_forced_250_spinup_rhop 0.01 hit_forced_250`
 
@@ -140,6 +139,5 @@ This case considers aerosol transport in a statistically stationary homogeneous 
 - `constant/kinematicCloudProperties`: one-way coupling, drag only, `maxCo 0.1`.
 - Run on one Leonardo DCGP node (112 cores): about 7.2 s per time step, $\Delta t \approx 4.1 \times 10^{-6}$ s at `maxCo 0.5`.
 
-**Solver.** Same AeroSolved build as `hit_frozen` (the `frozenFlow` patch is not needed here).
 
 
