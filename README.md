@@ -26,7 +26,6 @@ The repository includes the following configurations:
 | `taylor_green` | Periodic Taylor–Green vortex | 1,600 | 9,000 particles, 1–10 µm diameter (9 sections) | Available |
 | `hit_frozen` | Frozen homogeneous isotropic turbulence | 57 (Taylor) | 50,000 particles, 1–10 µm diameter (9 sections) | Available |
 | `hit_forced` | Forced homogeneous isotropic turbulence | 57–63 (Taylor) | 333,333 particles, 1.5, 5.5, 9.5 µm diameter (3 sections) | Available |
-| `hit_decaying` | Decaying homogeneous isotropic turbulence | 57 (Taylor) | — | Work in progress |
 
 ### 1. Lid-Driven Cavity (`cavity_1000`, `cavity_3200`)
 
@@ -94,9 +93,18 @@ This case considers aerosol transport in a homogeneous isotropic turbulence box 
 
 **Solver.** AeroSolved, branch `feature-electrostatic` (commit `7b4c48d70ee`), OpenFOAM v2312, with the patch in `aerosolved_patch/frozenFlow_correctDriftFlux.patch`. In the original code the frozen-flow branch of `aerosolEulerFoam` does not call `aerosol->correctDriftFlux()`, so the drift velocities are not updated and the convection schemes used in `YEqn.H` are not created.
 
+
+
+
+
+
+
+
+
+
 ### 4. Forced Homogeneous Isotropic Turbulence (`hit_forced`)
 
-This case considers aerosol transport in a statistically stationary homogeneous isotropic turbulence, sustained by an ABC forcing (the same forcing used in MHIT36 to generate the frozen field).
+This case considers aerosol transport in a statistically stationary homogeneous isotropic turbulence, sustained by an ABC forcing.
 
 **Flow parameters:**
 - 3D periodic box of side $L = 0.01$ m, $250^3$ cells
@@ -114,7 +122,7 @@ This case considers aerosol transport in a statistically stationary homogeneous 
 | $\Delta x/\eta$ ($250^3$) | 0.74–0.79 |
 
 **Particle parameters:**
-- 3 sizes at the EE section diameters, $d_p = 1.5$, 5.5 and 9.5 µm, 111,111 particles each (333,333 in total)
+- 9 sizes at the EE section diameters, $d_p = 1.5$, 5.5 and 9.5 µm, 111,111 particles each (333,333 in total)
 - One `manualInjection` injector per size with a fixed diameter, positions in `constant/kinematicCloudPosition.d1.5`, `.d5.5`, `.d9.5` (the start positions of the LPT tracker for the same sizes)
 - EE: 3 sections (`0/M.1`–`0/M.3`) with the same representative diameters, so that each EL size corresponds exactly to one EE section
 - Stokes number: $St_\eta \approx 0.05$, 0.6 and 1.9
@@ -133,9 +141,5 @@ This case considers aerosol transport in a statistically stationary homogeneous 
 - Run on one Leonardo DCGP node (112 cores): about 7.2 s per time step, $\Delta t \approx 4.1 \times 10^{-6}$ s at `maxCo 0.5`.
 
 **Solver.** Same AeroSolved build as `hit_frozen` (the `frozenFlow` patch is not needed here).
-
-### 5. Decaying Homogeneous Isotropic Turbulence (`hit_decaying`)
-
-**Status:** Work in progress (WIP).
 
 
