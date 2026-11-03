@@ -65,6 +65,60 @@ subModels
 				}
 			}
 		}
+		injector_d2.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d2.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	2.5e-06;
+				}
+			}
+		}
+		injector_d3.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d3.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	3.5e-06;
+				}
+			}
+		}
+		injector_d4.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d4.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	4.5e-06;
+				}
+			}
+		}
 		injector_d5.5
 		{
 			type		manualInjection;
@@ -80,6 +134,60 @@ subModels
 				fixedValueDistribution
 				{
 					value	5.5e-06;
+				}
+			}
+		}
+		injector_d6.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d6.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	6.5e-06;
+				}
+			}
+		}
+		injector_d7.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d7.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	7.5e-06;
+				}
+			}
+		}
+		injector_d8.5
+		{
+			type		manualInjection;
+			parcelBasisType	fixed;
+			nParticle	1;
+			massTotal	1.0;
+			U0		(0.0 0.0 0.0);      // particles at rest; EE: 0/V = -U
+			SOI		0.0;
+			positionsFile	"kinematicCloudPosition.d8.5";
+			sizeDistribution
+			{
+				type		fixedValue;
+				fixedValueDistribution
+				{
+					value	8.5e-06;
 				}
 			}
 		}
